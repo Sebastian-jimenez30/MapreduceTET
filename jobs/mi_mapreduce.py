@@ -21,12 +21,11 @@ class CreditAnalysis(MRJob):
         else:
             raise ValueError("Tarea no válida")
 
-    # --- Utilidades ---
     def limpiar_monto(self, monto_str):
         return float(monto_str.replace('$', '').replace(',', '').strip())
 
     def reducer_sum(self, key, values):
-        yield key, sum(values)
+        yield key, round(sum(values), 2)
 
     def reducer_avg(self, key, values):
         total = 0
@@ -34,10 +33,8 @@ class CreditAnalysis(MRJob):
         for val in values:
             total += val
             count += 1
-        promedio = total / count if count else 0
-        yield key, round(promedio, 2)
+        yield key, round(total / count, 2) if count else 0
 
-    # --- 1. Total monto por tipo de crédito ---
     def mapper_total_monto_credito(self, _, line):
         try:
             row = next(csv.reader([line]))
@@ -48,7 +45,6 @@ class CreditAnalysis(MRJob):
         except:
             pass
 
-    # --- 2. Promedio de tasa por producto ---
     def mapper_prom_tasa_producto(self, _, line):
         try:
             row = next(csv.reader([line]))
@@ -59,7 +55,6 @@ class CreditAnalysis(MRJob):
         except:
             pass
 
-    # --- 3. Total desembolsos por municipio ---
     def mapper_total_desemb_municipio(self, _, line):
         try:
             row = next(csv.reader([line]))
@@ -70,7 +65,6 @@ class CreditAnalysis(MRJob):
         except:
             pass
 
-    # --- 4. Promedio de monto por rango ---
     def mapper_prom_monto_rango(self, _, line):
         try:
             row = next(csv.reader([line]))
