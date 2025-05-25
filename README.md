@@ -92,3 +92,7 @@ http://3.218.34.95/api/total_monto_credito
 ```
 
 > Nota: profe si desea ver la api nos puede decir para activarle el laboratorio.
+
+## Video sustentación
+
+[Video](https://drive.google.com/file/d/1ac0j-Dtldohljng7cKV9K2EnL6b9UyKJ/view?usp=sharing)
